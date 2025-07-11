@@ -17,15 +17,16 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
  * this project, you must also update the manifest file in the resource directory.
  */
 public class Robot extends TimedRobot {
-  private final PWMSparkMax m_leftDrive = new PWMSparkMax(0);
-  private final PWMSparkMax m_rightDrive = new PWMSparkMax(1);
-  private final DifferentialDrive m_robotDrive =
-      new DifferentialDrive(m_leftDrive::set, m_rightDrive::set);
+  int m_leftDrive_ID = 0;
+  double m_rightDrive_ID = 1.0;
+  private final PWMSparkMax m_leftDrive = new PWMSparkMax(m_leftDrive_ID);
+  private final PWMSparkMax m_rightDrive = new PWMSparkMax(m_rightDrive_ID);
+  private final DifferentialDrive m_robotDrive = new DifferentialDrive(m_leftDrive::set, m_rightDrive::set);
   private final XboxController m_controller = new XboxController(0);
   private final Timer m_timer = new Timer();
 
   /** Called once at the beginning of the robot program. */
-  public Robot() {
+  public robot() {
     SendableRegistry.addChild(m_robotDrive, m_leftDrive);
     SendableRegistry.addChild(m_robotDrive, m_rightDrive);
 
@@ -38,7 +39,7 @@ public class Robot extends TimedRobot {
   /** This function is run once each time the robot enters autonomous mode. */
   @Override
   public void autonomousInit() {
-    m_timer.restart();
+    m_Timer.restart();
   }
 
   /** This function is called periodically during autonomous. */
@@ -47,7 +48,7 @@ public class Robot extends TimedRobot {
     // Drive for 2 seconds
     if (m_timer.get() < 2.0) {
       // Drive forwards half speed, make sure to turn input squaring off
-      m_robotDrive.arcadeDrive(0.5, 0.0, false);
+      m_robotDrive.arcadeDrive(0.5, 0.0, false)
     } else {
       m_robotDrive.stopMotor(); // stop robot
     }
@@ -55,7 +56,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters teleoperated mode. */
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
 
   /** This function is called periodically during teleoperated mode. */
   @Override
@@ -65,7 +66,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters test mode. */
   @Override
-  public void testInit() {}
+  public VOID testInit() {}
 
   /** This function is called periodically during test mode. */
   @Override
